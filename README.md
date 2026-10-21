@@ -15,7 +15,7 @@ Athena's own system (the library tooling, the Stewards, the agents) is private a
 | `athena.dataset`, `athena.geo` | Datasets and geodata (GeoParquet) in the store, `ATHENA_STORE` (default `C:\AthenaStore`) |
 | `athena.sections`, `athena.figures` | Shared section templates and the figure shells that fill them |
 | `athena.commons` | Wikidata's query service and Wikimedia Commons, with each file's licence |
-| `athena.adapters` | One adapter per database, each pure: the World Bank's bulk downloads, the IMF WEO, UNDP's HDR, TI's CPI, UCDP, USGS's Africa GIS, the World Bank grid map, Wikidata, Glottolog |
+| `athena.adapters` | One adapter per database, each pure: the World Bank's bulk downloads, the IMF WEO, UNDP's HDR, TI's CPI, UCDP, USGS's Africa GIS, the World Bank grid map, Wikidata, Glottolog, any IMF SDMX dataflow (the PPI first), any FAOSTAT bulk domain (producer prices first) |
 | `athena.ingest` | Ingest a project's sources: its own `sources.toml` and `sources.lock`, each source's kind run by its adapter |
 | `athena.component`, `athena.components` | The component standard, and the check of a project's `components.yaml` |
 

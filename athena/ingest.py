@@ -109,9 +109,22 @@ def _grid(src: dict, get: Get) -> Result:
     return Result(name, tables, report, layers)
 
 
+def _imf_sdmx(src: dict, get: Get) -> Result:
+    from athena.adapters import imf_sdmx
+    return Result(*imf_sdmx.ingest(get(src["url"]), get(src["structure_url"]), src["dataflow"], src["edition"],
+                                   src["codelists"]))
+
+
+def _faostat(src: dict, get: Get) -> Result:
+    from athena.adapters import faostat_bulk
+    codes = faostat_bulk.codes_from_natural_earth(get(src["area_codes_url"]))
+    return Result(*faostat_bulk.ingest(get(src["url"]), src["domain"], src["edition"], codes))
+
+
 KINDS: dict[str, Callable[[dict, Get], Result]] = {
     "worldbank-bulk": _worldbank, "imf-weo": _weo, "undp-hdr": _hdr, "ti-cpi": _cpi, "ucdp": _ucdp,
     "wikidata-sparql": _wikidata, "glottolog-cldf": _glottolog, "usgs-africa-gis": _usgs, "wb-africa-grid": _grid,
+    "imf-sdmx": _imf_sdmx, "faostat-bulk": _faostat,
 }
 
 

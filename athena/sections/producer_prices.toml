@@ -1,0 +1,39 @@
+id = "producer_prices"
+title = "Producer prices"
+order = 225
+dimension = "infrastructure"
+about = "What producers are paid: the change in producer and wholesale prices where the country publishes them, and the index of farm-gate prices for agriculture as a whole. Many states' producer price series stopped long ago; each figure shows its year."
+
+[measures]
+ppi_change = "Producer price index, percent change over the year before (annual)"
+wpi_change = "Wholesale price index, percent change over the year before (annual)"
+farm_prices = "Agricultural producer price index, agriculture as a whole (2014-2016 = 100)"
+
+[[figures]]
+id = "ppi_change"
+label = "Producer prices, change over the year"
+unit = "%"
+measure = "ppi_change"
+shell = "latest"
+
+[[figures]]
+id = "wpi_change"
+label = "Wholesale prices, change over the year"
+unit = "%"
+measure = "wpi_change"
+shell = "latest"
+
+[[figures]]
+id = "farm_prices"
+label = "Farm-gate prices, agriculture (2014-2016 = 100)"
+unit = "index"
+measure = "farm_prices"
+shell = "latest"
+
+[[figures]]
+id = "farm_prices_trend"
+label = "Farm-gate prices since 2000"
+unit = "index"
+measure = "farm_prices"
+shell = "trend"
+args = { since = "2000" }
