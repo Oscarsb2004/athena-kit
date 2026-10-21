@@ -1,0 +1,117 @@
+id = "appraisals"
+title = "Other appraisals"
+order = 15
+dimension = "stability"
+about = "Other institutions' finished scores, each on its publisher's own scale and with its publisher's interval where one is printed. Nothing here is rescaled or combined."
+
+[measures]
+wgi_va = "WGI Voice and Accountability, governance score 0-100"
+wgi_va_lower = "WGI Voice and Accountability, lower bound of the 90% interval"
+wgi_va_upper = "WGI Voice and Accountability, upper bound of the 90% interval"
+wgi_pv = "WGI Political Stability and Absence of Violence/Terrorism, governance score 0-100"
+wgi_pv_lower = "WGI Political Stability, lower bound of the 90% interval"
+wgi_pv_upper = "WGI Political Stability, upper bound of the 90% interval"
+wgi_ge = "WGI Government Effectiveness, governance score 0-100"
+wgi_ge_lower = "WGI Government Effectiveness, lower bound of the 90% interval"
+wgi_ge_upper = "WGI Government Effectiveness, upper bound of the 90% interval"
+wgi_rq = "WGI Regulatory Quality, governance score 0-100"
+wgi_rq_lower = "WGI Regulatory Quality, lower bound of the 90% interval"
+wgi_rq_upper = "WGI Regulatory Quality, upper bound of the 90% interval"
+wgi_rl = "WGI Rule of Law, governance score 0-100"
+wgi_rl_lower = "WGI Rule of Law, lower bound of the 90% interval"
+wgi_rl_upper = "WGI Rule of Law, upper bound of the 90% interval"
+wgi_cc = "WGI Control of Corruption, governance score 0-100"
+wgi_cc_lower = "WGI Control of Corruption, lower bound of the 90% interval"
+wgi_cc_upper = "WGI Control of Corruption, upper bound of the 90% interval"
+cpia = "CPIA, IDA resource allocation index, 1 (low) to 6 (high)"
+spi = "Statistical Performance Indicators, overall score 0-100"
+lpi = "Logistics Performance Index, overall score 1 (low) to 5 (high)"
+hdi = "Human Development Index, 0 to 1 (UNDP)"
+cpi = "Corruption Perceptions Index, score 0 (highly corrupt) to 100 (very clean)"
+cpi_lower = "Corruption Perceptions Index, lower bound of the 90% interval"
+cpi_upper = "Corruption Perceptions Index, upper bound of the 90% interval"
+
+[[figures]]
+id = "wgi_va"
+label = "Voice and accountability (World Bank WGI)"
+unit = "score 0-100"
+measure = "wgi_va"
+bounds = ["wgi_va_lower", "wgi_va_upper"]
+shell = "latest"
+
+[[figures]]
+id = "wgi_pv"
+label = "Political stability and absence of violence (World Bank WGI)"
+unit = "score 0-100"
+measure = "wgi_pv"
+bounds = ["wgi_pv_lower", "wgi_pv_upper"]
+shell = "latest"
+
+[[figures]]
+id = "wgi_ge"
+label = "Government effectiveness (World Bank WGI)"
+unit = "score 0-100"
+measure = "wgi_ge"
+bounds = ["wgi_ge_lower", "wgi_ge_upper"]
+shell = "latest"
+
+[[figures]]
+id = "wgi_rq"
+label = "Regulatory quality (World Bank WGI)"
+unit = "score 0-100"
+measure = "wgi_rq"
+bounds = ["wgi_rq_lower", "wgi_rq_upper"]
+shell = "latest"
+
+[[figures]]
+id = "wgi_rl"
+label = "Rule of law (World Bank WGI)"
+unit = "score 0-100"
+measure = "wgi_rl"
+bounds = ["wgi_rl_lower", "wgi_rl_upper"]
+shell = "latest"
+
+[[figures]]
+id = "wgi_cc"
+label = "Control of corruption (World Bank WGI)"
+unit = "score 0-100"
+measure = "wgi_cc"
+bounds = ["wgi_cc_lower", "wgi_cc_upper"]
+shell = "latest"
+
+[[figures]]
+id = "cpia"
+label = "Country Policy and Institutional Assessment (World Bank CPIA)"
+unit = "1-6"
+measure = "cpia"
+shell = "latest"
+
+[[figures]]
+id = "spi"
+label = "Statistical performance (World Bank SPI)"
+unit = "score 0-100"
+measure = "spi"
+shell = "latest"
+
+[[figures]]
+id = "lpi"
+label = "Logistics performance (World Bank LPI)"
+unit = "1-5"
+measure = "lpi"
+shell = "latest"
+
+[[figures]]
+id = "hdi"
+label = "Human Development Index (UNDP)"
+unit = "index 0-1"
+measure = "hdi"
+shell = "latest"
+note = "UNDP recalculates the whole HDI series with each edition, so values from different editions are not comparable. Shown from the 2025 edition."
+
+[[figures]]
+id = "cpi"
+label = "Corruption Perceptions Index (Transparency International)"
+unit = "score 0-100"
+measure = "cpi"
+bounds = ["cpi_lower", "cpi_upper"]
+shell = "latest"

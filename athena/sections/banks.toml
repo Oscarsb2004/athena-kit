@@ -1,0 +1,63 @@
+id = "banks"
+title = "Banks"
+order = 130
+dimension = "finance"
+about = "How sound the banks are, how much they lend, at what margin, and how many adults use them."
+
+[measures]
+bad_loans = "Bank non-performing loans, percent of gross loans"
+capital_to_assets = "Bank capital to assets, percent"
+private_credit = "Domestic credit to the private sector, percent of GDP"
+interest_spread = "Interest rate spread, lending rate less deposit rate, percentage points"
+accounts = "Account ownership, percent of people aged 15 and over"
+
+[[figures]]
+id = "bad_loans"
+label = "Non-performing loans"
+unit = "% of loans"
+measure = "bad_loans"
+shell = "latest"
+
+[[figures]]
+id = "bad_loans_peak"
+label = "Non-performing loans, highest on record"
+unit = "% of loans"
+measure = "bad_loans"
+shell = "extremes"
+args = { k = 1 }
+
+[[figures]]
+id = "capital_to_assets"
+label = "Bank capital to assets"
+unit = "%"
+measure = "capital_to_assets"
+shell = "latest"
+
+[[figures]]
+id = "private_credit"
+label = "Credit to the private sector"
+unit = "% of GDP"
+measure = "private_credit"
+shell = "latest"
+
+[[figures]]
+id = "private_credit_change_10"
+label = "Change in credit to the private sector over 10 years"
+unit = "percentage points"
+measure = "private_credit"
+shell = "change"
+args = { k = 10 }
+
+[[figures]]
+id = "interest_spread"
+label = "Interest rate spread"
+unit = "percentage points"
+measure = "interest_spread"
+shell = "latest"
+
+[[figures]]
+id = "accounts"
+label = "Adults with an account"
+unit = "% of 15+"
+measure = "accounts"
+shell = "latest"

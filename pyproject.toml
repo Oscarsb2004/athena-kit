@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "athena-kit"
+version = "0.1.0"
+description = "The public parts of Athena: published statistics fetched once and hash-locked, in one common format, with one adapter per database and the component standard."
+readme = "README.md"
+requires-python = ">=3.13"
+license = "LicenseRef-PolyForm-Noncommercial-1.0.0"
+license-files = ["LICENSE.md", "NOTICE"]
+dependencies = [
+    "pandas==3.0.6",
+    "pandera==0.33.1",
+    "requests-cache==1.3.3",
+    "PyYAML==6.0.3",
+    "openpyxl==3.1.5",
+]
+
+[project.optional-dependencies]
+# athena.geo and the geodata adapters (USGS Africa GIS, World Bank grid)
+geo = ["geopandas==1.2.0", "pyogrio==0.13.0", "pyproj==3.8.0", "shapely==2.2.0", "pyarrow==25.0.1"]
+test = ["pytest==9.1.1"]
+
+[tool.setuptools.packages.find]
+include = ["athena*"]
+
+[tool.setuptools.package-data]
+"athena.sections" = ["*.toml"]
+"athena.adapters" = ["*.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]

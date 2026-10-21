@@ -1,0 +1,63 @@
+id = "monetary"
+title = "Monetary conditions"
+order = 110
+dimension = "finance"
+about = "How tight money is: what borrowing costs after inflation, what banks charge and pay, and how fast money grows."
+
+[measures]
+real_interest_rate = "Real interest rate: the lending rate adjusted for inflation by the GDP deflator, percent"
+lending_rate = "Lending interest rate, percent"
+deposit_rate = "Deposit interest rate, percent"
+broad_money = "Broad money, percent of GDP"
+broad_money_growth = "Broad money growth, percent a year"
+
+[[figures]]
+id = "real_interest_rate"
+label = "Real interest rate"
+unit = "%"
+measure = "real_interest_rate"
+shell = "latest"
+
+[[figures]]
+id = "real_interest_rate_trend"
+label = "Real interest rate since 2000"
+unit = "%"
+measure = "real_interest_rate"
+shell = "trend"
+args = { since = "2000" }
+
+[[figures]]
+id = "lending_rate"
+label = "Lending rate"
+unit = "%"
+measure = "lending_rate"
+shell = "latest"
+
+[[figures]]
+id = "deposit_rate"
+label = "Deposit rate"
+unit = "%"
+measure = "deposit_rate"
+shell = "latest"
+
+[[figures]]
+id = "broad_money"
+label = "Broad money"
+unit = "% of GDP"
+measure = "broad_money"
+shell = "latest"
+
+[[figures]]
+id = "broad_money_growth"
+label = "Broad money growth, latest year"
+unit = "%"
+measure = "broad_money_growth"
+shell = "latest"
+
+[[figures]]
+id = "broad_money_growth_mean_3"
+label = "Broad money growth, 3-year average"
+unit = "%"
+measure = "broad_money_growth"
+shell = "mean"
+args = { k = 3 }

@@ -1,0 +1,63 @@
+id = "structure"
+title = "Economic structure"
+order = 70
+dimension = "economy"
+about = "What the economy is made of, and how much it leans on oil, gas, minerals and natural resources."
+
+[measures]
+agriculture = "Agriculture, forestry and fishing, value added, percent of GDP"
+industry = "Industry, including construction, value added, percent of GDP"
+manufacturing = "Manufacturing, value added, percent of GDP"
+services = "Services, value added, percent of GDP"
+fuel_exports = "Fuel exports, percent of merchandise exports"
+ore_exports = "Ores and metals exports, percent of merchandise exports"
+resource_rents = "Total natural resources rents, percent of GDP"
+
+[[figures]]
+id = "agriculture"
+label = "Agriculture"
+unit = "% of GDP"
+measure = "agriculture"
+shell = "latest"
+
+[[figures]]
+id = "industry"
+label = "Industry"
+unit = "% of GDP"
+measure = "industry"
+shell = "latest"
+
+[[figures]]
+id = "manufacturing"
+label = "of which manufacturing"
+unit = "% of GDP"
+measure = "manufacturing"
+shell = "latest"
+
+[[figures]]
+id = "services"
+label = "Services"
+unit = "% of GDP"
+measure = "services"
+shell = "latest"
+
+[[figures]]
+id = "fuel_exports"
+label = "Fuel exports"
+unit = "% of merchandise exports"
+measure = "fuel_exports"
+shell = "latest"
+
+[[figures]]
+id = "ore_exports"
+label = "Ore and metal exports"
+unit = "% of merchandise exports"
+measure = "ore_exports"
+shell = "latest"
+
+[[figures]]
+id = "resource_rents"
+label = "Natural resource rents"
+unit = "% of GDP"
+measure = "resource_rents"
+shell = "latest"

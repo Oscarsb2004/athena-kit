@@ -1,0 +1,39 @@
+id = "public_finances"
+title = "Public finances"
+order = 40
+dimension = "economy"
+about = "What the state collects, how far it borrows, and how much it owes. What the country owes abroad is under Finance."
+
+[measures]
+tax_revenue = "Tax revenue, percent of GDP"
+fiscal_balance = "Net lending (+) or borrowing (-) of government, percent of GDP"
+government_debt = "Government gross debt, percent of GDP"
+
+[[figures]]
+id = "tax_revenue"
+label = "Tax revenue"
+unit = "% of GDP"
+measure = "tax_revenue"
+shell = "latest"
+
+[[figures]]
+id = "fiscal_balance"
+label = "Government lending (+) or borrowing (-)"
+unit = "% of GDP"
+measure = "fiscal_balance"
+shell = "latest"
+
+[[figures]]
+id = "fiscal_balance_mean_3"
+label = "Government lending or borrowing, 3-year average"
+unit = "% of GDP"
+measure = "fiscal_balance"
+shell = "mean"
+args = { k = 3 }
+
+[[figures]]
+id = "government_debt"
+label = "Government debt"
+unit = "% of GDP"
+measure = "government_debt"
+shell = "latest"

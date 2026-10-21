@@ -1,0 +1,200 @@
+country_id,country,iso3,how
+2,United States of America,USA,name
+20,Canada,CAN,name
+31,Bahamas,BHS,alias
+40,Cuba,CUB,name
+41,Haiti,HTI,name
+42,Dominican Republic,DOM,name
+51,Jamaica,JAM,name
+52,Trinidad and Tobago,TTO,name
+53,Barbados,BRB,name
+54,Dominica,DMA,name
+55,Grenada,GRD,name
+56,Saint Lucia,LCA,alias
+57,Saint Vincent and the Grenadines,VCT,alias
+58,Antigua & Barbuda,ATG,alias
+60,Saint Kitts and Nevis,KNA,alias
+70,Mexico,MEX,name
+80,Belize,BLZ,name
+90,Guatemala,GTM,name
+91,Honduras,HND,name
+92,El Salvador,SLV,name
+93,Nicaragua,NIC,name
+94,Costa Rica,CRI,name
+95,Panama,PAN,name
+100,Colombia,COL,name
+101,Venezuela,VEN,alias
+110,Guyana,GUY,name
+115,Suriname,SUR,name
+130,Ecuador,ECU,name
+135,Peru,PER,name
+140,Brazil,BRA,name
+145,Bolivia,BOL,name
+150,Paraguay,PRY,name
+155,Chile,CHL,name
+160,Argentina,ARG,name
+165,Uruguay,URY,name
+200,United Kingdom,GBR,name
+205,Ireland,IRL,name
+210,Netherlands,NLD,name
+211,Belgium,BEL,name
+212,Luxembourg,LUX,name
+220,France,FRA,name
+221,Monaco,MCO,name
+223,Liechtenstein,LIE,name
+225,Switzerland,CHE,name
+230,Spain,ESP,name
+232,Andorra,AND,name
+235,Portugal,PRT,name
+260,Germany,DEU,name
+265,German Democratic Republic,DDDE,alias
+290,Poland,POL,name
+305,Austria,AUT,name
+310,Hungary,HUN,name
+315,Czechoslovakia,CSHH,alias
+316,Czech Republic,CZE,name
+317,Slovakia,SVK,alias
+325,Italy,ITA,name
+327,Vatican City State,VAT,alias
+331,San Marino,SMR,name
+338,Malta,MLT,name
+339,Albania,ALB,name
+341,Montenegro,MNE,name
+343,North Macedonia,MKD,name
+344,Croatia,HRV,name
+345,Serbia (Yugoslavia),SRB,name
+346,Bosnia-Herzegovina,BIH,alias
+347,Kosovo,XKX,name
+349,Slovenia,SVN,name
+350,Greece,GRC,name
+352,Cyprus,CYP,name
+355,Bulgaria,BGR,name
+359,Moldova,MDA,name
+360,Romania,ROU,name
+365,Russia (Soviet Union),RUS,alias
+366,Estonia,EST,name
+367,Latvia,LVA,name
+368,Lithuania,LTU,name
+369,Ukraine,UKR,name
+370,Belarus,BLR,name
+371,Armenia,ARM,name
+372,Georgia,GEO,name
+373,Azerbaijan,AZE,name
+375,Finland,FIN,name
+380,Sweden,SWE,name
+385,Norway,NOR,name
+390,Denmark,DNK,name
+395,Iceland,ISL,name
+402,Cape Verde,CPV,alias
+403,Sao Tome and Principe,STP,alias
+404,Guinea-Bissau,GNB,name
+411,Equatorial Guinea,GNQ,name
+420,Gambia,GMB,alias
+432,Mali,MLI,name
+433,Senegal,SEN,name
+434,Benin,BEN,name
+435,Mauritania,MRT,name
+436,Niger,NER,name
+437,Ivory Coast,CIV,alias
+438,Guinea,GIN,name
+439,Burkina Faso,BFA,name
+450,Liberia,LBR,name
+451,Sierra Leone,SLE,name
+452,Ghana,GHA,name
+461,Togo,TGO,name
+471,Cameroon,CMR,name
+475,Nigeria,NGA,name
+481,Gabon,GAB,name
+482,Central African Republic,CAF,name
+483,Chad,TCD,name
+484,Congo,COG,alias
+490,DR Congo (Zaire),COD,alias
+500,Uganda,UGA,name
+501,Kenya,KEN,name
+510,Tanzania,TZA,name
+516,Burundi,BDI,name
+517,Rwanda,RWA,name
+520,Somalia,SOM,alias
+522,Djibouti,DJI,name
+530,Ethiopia,ETH,name
+531,Eritrea,ERI,name
+540,Angola,AGO,name
+541,Mozambique,MOZ,name
+551,Zambia,ZMB,name
+552,Zimbabwe (Rhodesia),ZWE,name
+553,Malawi,MWI,name
+560,South Africa,ZAF,name
+565,Namibia,NAM,name
+570,Lesotho,LSO,name
+571,Botswana,BWA,name
+572,Kingdom of eSwatini (Swaziland),SWZ,name
+580,Madagascar (Malagasy),MDG,name
+581,Comoros,COM,name
+590,Mauritius,MUS,name
+591,Seychelles,SYC,name
+600,Morocco,MAR,name
+615,Algeria,DZA,name
+616,Tunisia,TUN,name
+620,Libya,LBY,name
+625,Sudan,SDN,name
+626,South Sudan,SSD,name
+630,Iran,IRN,alias
+640,Turkey,TUR,alias
+645,Iraq,IRQ,name
+651,Egypt,EGY,alias
+652,Syria,SYR,alias
+660,Lebanon,LBN,name
+663,Jordan,JOR,name
+666,Israel,ISR,name
+670,Saudi Arabia,SAU,name
+678,Yemen (North Yemen),YEM,alias
+680,Yemen (South Yemen),YDYE,alias
+690,Kuwait,KWT,name
+692,Bahrain,BHR,name
+694,Qatar,QAT,name
+696,United Arab Emirates,ARE,name
+698,Oman,OMN,name
+700,Afghanistan,AFG,name
+701,Turkmenistan,TKM,name
+702,Tajikistan,TJK,name
+703,Kyrgyzstan,KGZ,alias
+704,Uzbekistan,UZB,name
+705,Kazakhstan,KAZ,name
+710,China,CHN,name
+712,Mongolia,MNG,name
+713,Taiwan,TWN,alias
+731,North Korea,PRK,alias
+732,South Korea,KOR,alias
+740,Japan,JPN,name
+750,India,IND,name
+760,Bhutan,BTN,name
+770,Pakistan,PAK,name
+771,Bangladesh,BGD,name
+775,Myanmar (Burma),MMR,name
+780,Sri Lanka,LKA,name
+781,Maldives,MDV,name
+790,Nepal,NPL,name
+800,Thailand,THA,name
+811,Cambodia (Kampuchea),KHM,name
+812,Laos,LAO,alias
+816,Vietnam (North Vietnam),VNM,name
+820,Malaysia,MYS,name
+830,Singapore,SGP,name
+835,Brunei,BRN,alias
+840,Philippines,PHL,name
+850,Indonesia,IDN,name
+860,East Timor,TLS,alias
+900,Australia,AUS,name
+910,Papua New Guinea,PNG,name
+920,New Zealand,NZL,name
+935,Vanuatu,VUT,name
+940,Solomon Islands,SLB,name
+950,Fiji,FJI,name
+970,Kiribati,KIR,name
+971,Nauru,NRU,alias
+972,Tonga,TON,name
+973,Tuvalu,TUV,name
+983,Marshall Islands,MHL,name
+986,Palau,PLW,name
+987,Federated States of Micronesia,FSM,name
+990,Samoa (Western Samoa),WSM,name

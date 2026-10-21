@@ -1,0 +1,72 @@
+id = "currency"
+title = "Currency and reserves"
+order = 120
+dimension = "finance"
+about = "How the currency has moved, how competitive it is, and how large a cushion of reserves stands behind it."
+
+[measures]
+exchange_rate = "Official exchange rate, local currency per US dollar, period average"
+real_effective_rate = "Real effective exchange rate index (2010 = 100)"
+reserves_months = "Total reserves, in months of imports"
+short_term_debt_reserves = "Short-term external debt, percent of total reserves"
+current_account = "Current account balance, percent of GDP"
+
+[[figures]]
+id = "currency_5"
+label = "Local currency per US dollar, average change a year over 5 years (+ is weaker)"
+unit = "% a year"
+measure = "exchange_rate"
+shell = "growth"
+args = { k = 5 }
+
+[[figures]]
+id = "currency_10"
+label = "Local currency per US dollar, average change a year over 10 years (+ is weaker)"
+unit = "% a year"
+measure = "exchange_rate"
+shell = "growth"
+args = { k = 10 }
+
+[[figures]]
+id = "real_effective_rate"
+label = "Real effective exchange rate"
+unit = "index, 2010 = 100"
+measure = "real_effective_rate"
+shell = "latest"
+
+[[figures]]
+id = "reserves_months"
+label = "Reserves"
+unit = "months of imports"
+measure = "reserves_months"
+shell = "latest"
+
+[[figures]]
+id = "reserves_trend"
+label = "Reserves since 2000, months of imports"
+unit = "months"
+measure = "reserves_months"
+shell = "trend"
+args = { since = "2000" }
+
+[[figures]]
+id = "short_term_debt_reserves"
+label = "Short-term external debt"
+unit = "% of reserves"
+measure = "short_term_debt_reserves"
+shell = "latest"
+
+[[figures]]
+id = "current_account"
+label = "Current account balance"
+unit = "% of GDP"
+measure = "current_account"
+shell = "latest"
+
+[[figures]]
+id = "current_account_mean_3"
+label = "Current account balance, 3-year average"
+unit = "% of GDP"
+measure = "current_account"
+shell = "mean"
+args = { k = 3 }

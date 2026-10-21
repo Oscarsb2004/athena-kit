@@ -1,0 +1,63 @@
+id = "sovereign"
+title = "Sovereign and external debt"
+order = 150
+dimension = "finance"
+about = "How heavily debt weighs: interest against revenue, what the country owes abroad, and what servicing it costs."
+
+[measures]
+interest_revenue = "Interest payments, percent of government revenue"
+external_debt = "External debt stocks, percent of GNI"
+debt_service_gni = "Total debt service, percent of GNI"
+debt_service_exports = "Total debt service, percent of exports of goods, services and primary income"
+
+[[figures]]
+id = "interest_revenue"
+label = "Interest payments"
+unit = "% of revenue"
+measure = "interest_revenue"
+shell = "latest"
+
+[[figures]]
+id = "interest_revenue_change_5"
+label = "Change in interest payments over 5 years"
+unit = "percentage points"
+measure = "interest_revenue"
+shell = "change"
+args = { k = 5 }
+
+[[figures]]
+id = "external_debt"
+label = "External debt"
+unit = "% of GNI"
+measure = "external_debt"
+shell = "latest"
+
+[[figures]]
+id = "external_debt_trend"
+label = "External debt since 2000, % of GNI"
+unit = "% of GNI"
+measure = "external_debt"
+shell = "trend"
+args = { since = "2000" }
+
+[[figures]]
+id = "debt_service_gni"
+label = "Debt service"
+unit = "% of GNI"
+measure = "debt_service_gni"
+shell = "latest"
+
+[[figures]]
+id = "debt_service_exports"
+label = "Debt service"
+unit = "% of exports"
+measure = "debt_service_exports"
+shell = "latest"
+
+[[figures]]
+id = "debt_service_change_5"
+label = "Change in debt service over 5 years"
+unit = "percentage points of GNI"
+measure = "debt_service_gni"
+shell = "change"
+args = { k = 5 }

@@ -1,0 +1,39 @@
+id = "prices"
+title = "Prices and inflation"
+order = 30
+dimension = "economy"
+about = "How fast consumer prices rise now, on average lately, and at their worst on record."
+
+[measures]
+inflation = "Consumer price inflation, percent a year"
+
+[[figures]]
+id = "inflation"
+label = "Inflation, latest year"
+unit = "%"
+measure = "inflation"
+shell = "latest"
+
+[[figures]]
+id = "inflation_mean_3"
+label = "Inflation, 3-year average"
+unit = "%"
+measure = "inflation"
+shell = "mean"
+args = { k = 3 }
+
+[[figures]]
+id = "inflation_peaks"
+label = "Highest inflation on record, at least 3 years apart"
+unit = "%"
+measure = "inflation"
+shell = "extremes"
+args = { k = 3, gap = 3 }
+
+[[figures]]
+id = "inflation_trend"
+label = "Inflation since 2000"
+unit = "%"
+measure = "inflation"
+shell = "trend"
+args = { since = "2000" }

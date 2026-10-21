@@ -1,0 +1,47 @@
+id = "capital_markets"
+title = "Capital markets"
+order = 140
+dimension = "finance"
+about = "How deep and how active the stock market is. Many smaller economies have no exchange of their own, or share a regional one."
+
+[measures]
+market_cap = "Market capitalisation of listed domestic companies, percent of GDP"
+turnover = "Stocks traded, turnover ratio of domestic shares, percent"
+listed = "Listed domestic companies, total"
+equity_index = "S&P Global equity index, annual change, percent"
+
+[[figures]]
+id = "market_cap"
+label = "Market capitalisation"
+unit = "% of GDP"
+measure = "market_cap"
+shell = "latest"
+
+[[figures]]
+id = "turnover"
+label = "Turnover ratio"
+unit = "%"
+measure = "turnover"
+shell = "latest"
+
+[[figures]]
+id = "listed"
+label = "Listed domestic companies"
+unit = "companies"
+measure = "listed"
+shell = "latest"
+
+[[figures]]
+id = "equity_index"
+label = "Equity index, latest year"
+unit = "%"
+measure = "equity_index"
+shell = "latest"
+
+[[figures]]
+id = "equity_index_mean_3"
+label = "Equity index, 3-year average change"
+unit = "%"
+measure = "equity_index"
+shell = "mean"
+args = { k = 3 }

@@ -1,0 +1,55 @@
+id = "output"
+title = "Output and growth"
+order = 20
+dimension = "economy"
+about = "How large the economy is, how much it produces per person, and how fast and how steadily it grows."
+
+[measures]
+gdp = "Gross domestic product, current US dollars"
+gdp_per_person = "GDP per person, at purchasing power parity, current international dollars"
+real_growth = "Real GDP growth, percent a year"
+
+[[figures]]
+id = "gdp"
+label = "GDP"
+unit = "current US$"
+measure = "gdp"
+shell = "latest"
+
+[[figures]]
+id = "gdp_per_person"
+label = "GDP per person (PPP)"
+unit = "current international $"
+measure = "gdp_per_person"
+shell = "latest"
+
+[[figures]]
+id = "growth"
+label = "Real growth, latest year"
+unit = "%"
+measure = "real_growth"
+shell = "latest"
+
+[[figures]]
+id = "growth_mean_3"
+label = "Real growth, 3-year average"
+unit = "%"
+measure = "real_growth"
+shell = "mean"
+args = { k = 3 }
+
+[[figures]]
+id = "growth_spread_10"
+label = "Volatility of growth, 10 years (standard deviation)"
+unit = "percentage points"
+measure = "real_growth"
+shell = "spread"
+args = { k = 10 }
+
+[[figures]]
+id = "growth_trend"
+label = "Real growth since 2000"
+unit = "%"
+measure = "real_growth"
+shell = "trend"
+args = { since = "2000" }

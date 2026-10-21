@@ -1,0 +1,39 @@
+id = "jobs"
+title = "Jobs"
+order = 80
+dimension = "economy"
+about = "Modelled labour estimates. Where most work is informal, low unemployment can mean people cannot afford to be without work, so these are context, not a verdict."
+
+[measures]
+unemployment = "Unemployment, percent of the labour force (modelled estimate)"
+youth_unemployment = "Unemployment, ages 15-24, percent of that labour force (modelled estimate)"
+participation = "Labour force participation, percent of people aged 15 and over (modelled estimate)"
+vulnerable_employment = "Vulnerable employment, percent of total employment (modelled estimate)"
+
+[[figures]]
+id = "unemployment"
+label = "Unemployment"
+unit = "% of labour force"
+measure = "unemployment"
+shell = "latest"
+
+[[figures]]
+id = "youth_unemployment"
+label = "Youth unemployment (15-24)"
+unit = "% of labour force 15-24"
+measure = "youth_unemployment"
+shell = "latest"
+
+[[figures]]
+id = "participation"
+label = "Labour force participation"
+unit = "% of 15+"
+measure = "participation"
+shell = "latest"
+
+[[figures]]
+id = "vulnerable_employment"
+label = "Vulnerable employment"
+unit = "% of employment"
+measure = "vulnerable_employment"
+shell = "latest"

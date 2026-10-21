@@ -1,0 +1,59 @@
+id = "outlook"
+title = "Outlook"
+order = 10
+dimension = "economy"
+about = "A publisher's projections, as printed: growth, inflation and government debt, from the first year it projects to the last."
+
+[measures]
+growth_projected = "Real GDP growth, projected, percent a year"
+inflation_projected = "Inflation, average consumer prices, projected, percent a year"
+debt_projected = "General government gross debt, projected, percent of GDP"
+
+[[figures]]
+id = "growth_first"
+label = "Real growth, first projected year"
+unit = "%"
+measure = "growth_projected"
+shell = "first"
+
+[[figures]]
+id = "growth_last"
+label = "Real growth, last projected year"
+unit = "%"
+measure = "growth_projected"
+shell = "latest"
+
+[[figures]]
+id = "growth_path"
+label = "Real growth, every projected year"
+unit = "%"
+measure = "growth_projected"
+shell = "trend"
+
+[[figures]]
+id = "inflation_first"
+label = "Inflation, first projected year"
+unit = "%"
+measure = "inflation_projected"
+shell = "first"
+
+[[figures]]
+id = "inflation_last"
+label = "Inflation, last projected year"
+unit = "%"
+measure = "inflation_projected"
+shell = "latest"
+
+[[figures]]
+id = "debt_first"
+label = "Government gross debt, first projected year"
+unit = "% of GDP"
+measure = "debt_projected"
+shell = "first"
+
+[[figures]]
+id = "debt_last"
+label = "Government gross debt, last projected year"
+unit = "% of GDP"
+measure = "debt_projected"
+shell = "latest"

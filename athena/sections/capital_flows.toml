@@ -1,0 +1,55 @@
+id = "capital_flows"
+title = "Capital flows"
+order = 160
+dimension = "finance"
+about = "Which way money flows across the border: direct investment, portfolio money, remittances and aid."
+
+[measures]
+fdi = "Foreign direct investment, net inflows, percent of GDP"
+portfolio_equity = "Portfolio equity, net inflows, current US dollars"
+portfolio_net = "Portfolio investment, net (balance of payments), current US dollars"
+remittances = "Personal remittances received, percent of GDP"
+aid = "Net official development assistance received, percent of GNI"
+
+[[figures]]
+id = "fdi"
+label = "Foreign direct investment, inflows"
+unit = "% of GDP"
+measure = "fdi"
+shell = "latest"
+
+[[figures]]
+id = "fdi_mean_3"
+label = "Foreign direct investment, 3-year average"
+unit = "% of GDP"
+measure = "fdi"
+shell = "mean"
+args = { k = 3 }
+
+[[figures]]
+id = "portfolio_equity"
+label = "Portfolio equity inflows"
+unit = "current US$"
+measure = "portfolio_equity"
+shell = "latest"
+
+[[figures]]
+id = "portfolio_net"
+label = "Portfolio investment, net"
+unit = "current US$"
+measure = "portfolio_net"
+shell = "latest"
+
+[[figures]]
+id = "remittances"
+label = "Remittances received"
+unit = "% of GDP"
+measure = "remittances"
+shell = "latest"
+
+[[figures]]
+id = "aid"
+label = "Development aid received"
+unit = "% of GNI"
+measure = "aid"
+shell = "latest"
