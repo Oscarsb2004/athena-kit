@@ -25,6 +25,7 @@ The check reads the code without running it (Python's own parser), and fails whe
 - a module under `covers` has no entry and is not ignored.
 
     python -m athena.components check <project folder>
+    python -m athena.components draft <project folder>   # fill `components` from the code (see `draft`)
 """
 
 from __future__ import annotations
@@ -129,7 +130,81 @@ def check(root: Path) -> Report:
     return report
 
 
+def _signature(fn: ast.AST) -> tuple[list[str], list[str]]:
+    """A function's (or a class's `__init__`/`run`'s) parameters and return, as written in its annotations."""
+    if isinstance(fn, ast.ClassDef):
+        inner = {n.name: n for n in fn.body if isinstance(n, ast.FunctionDef)}
+        fn = inner.get("run") or inner.get("__init__") or fn
+        if isinstance(fn, ast.ClassDef):
+            return ["(see the class)"], ["(see the class)"]
+    args = [a for a in fn.args.posonlyargs + fn.args.args + fn.args.kwonlyargs if a.arg not in ("self", "cls")]
+    ins = [f"{a.arg}: {ast.unparse(a.annotation)}" if a.annotation else a.arg for a in args] or ["(none)"]
+    outs = [ast.unparse(fn.returns)] if fn.returns is not None else ["(not annotated: see the code)"]
+    return ins, outs
+
+
+def draft(root: Path) -> dict:
+    """Fill a manifest's `components` from the code: one legacy entry per top-level public function or class of each
+    module under `covers`. Its section comes from the manifest's `sections` (a path prefix to a section; the longest
+    prefix wins), its purpose from the first line of its docstring, its inputs and output from its signature, its
+    tests from the test functions that use its name, and its dependencies from the project names it imports. An
+    entry marked `reviewed: true`, or of form `component`, is kept as written. Drafted entries say `drafted: true`."""
+    path = root / "components.yaml"
+    doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    keep = {e["id"]: e for e in doc.get("components") or [] if e.get("reviewed") or e.get("form") == "component"}
+    prefixes = sorted((doc.get("sections") or {}).items(), key=lambda kv: -len(kv[0]))
+    ignored = {Path(p).as_posix() for p in doc.get("ignore") or []}
+    files = []
+    for cover in doc.get("covers") or []:
+        target = root / cover
+        files += [target] if target.is_file() else sorted(target.rglob("*.py"))
+    used_in: dict[str, list[str]] = {}
+    for test_file in sorted((root / doc.get("tests", "tests")).rglob("test_*.py")):
+        tree = ast.parse(test_file.read_text(encoding="utf-8"))
+        for fn in tree.body:
+            if isinstance(fn, ast.FunctionDef) and fn.name.startswith("test_"):
+                names = {n.id for n in ast.walk(fn) if isinstance(n, ast.Name)} | {
+                    n.attr for n in ast.walk(fn) if isinstance(n, ast.Attribute)}
+                for name in names:
+                    used_in.setdefault(name, []).append(f"{test_file.relative_to(root).as_posix()}::{fn.name}")
+    entries, by_name = [], {}
+    for f in files:
+        rel = f.relative_to(root).as_posix()
+        if "__pycache__" in rel or f.name == "__init__.py" or rel in ignored:
+            continue
+        tree = ast.parse(f.read_text(encoding="utf-8"))
+        section = next((s for p, s in prefixes if rel.startswith(p)), "03 Pipeline")
+        imported = {a.asname or a.name for n in ast.walk(tree) if isinstance(n, ast.ImportFrom) and n.module
+                    and not n.module.startswith(("athena", "pandas", "numpy", "scipy")) for a in n.names}
+        tops = [n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.ClassDef)) and not n.name.startswith("_")]
+        if not tops:  # a module of constants or a script body: one entry for the module itself
+            tops = [n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.ClassDef))][:1]
+        for node in tops:
+            eid = rel.removesuffix(".py").replace("/", ".") + "." + node.name
+            ins, outs = _signature(node)
+            purpose = (ast.get_docstring(node) or "").strip().split("\n")[0] or "(no docstring: to be written)"
+            calls = {n.id for n in ast.walk(node) if isinstance(n, ast.Name)} & imported
+            entry = {"id": eid, "section": section, "entry": f"{rel}:{node.name}",
+                     "form": "component" if _is_component(node) else "legacy", "purpose": purpose,
+                     "inputs": ins, "outputs": outs, "tests": sorted(set(used_in.get(node.name, [])))[:5],
+                     "depends_on": sorted(calls), "drafted": True}
+            entries.append(keep.get(eid, entry))
+            by_name.setdefault(node.name, eid)
+    for e in entries:  # a dependency is named by the id it resolves to, and dropped if it is not an entry
+        if e.get("drafted"):
+            e["depends_on"] = sorted({by_name[d] for d in e["depends_on"] if d in by_name and by_name[d] != e["id"]})
+    doc["components"] = entries
+    path.write_text(yaml.safe_dump(doc, sort_keys=False, allow_unicode=True, width=120), encoding="utf-8",
+                    newline="\n")
+    return doc
+
+
 def main(argv: list[str]) -> int:
+    if argv[:1] == ["draft"] and len(argv) == 2:
+        doc = draft(Path(argv[1]))
+        print(f"drafted {sum(1 for e in doc['components'] if e.get('drafted'))} entries; "
+              f"kept {sum(1 for e in doc['components'] if not e.get('drafted'))} as written")
+        return 0
     if argv[:1] != ["check"] or len(argv) != 2:
         print(__doc__)
         return 2

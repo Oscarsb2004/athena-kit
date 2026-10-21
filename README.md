@@ -22,7 +22,7 @@ Athena's own system (the library tooling, the Stewards, the agents) is private a
 ## Using it in a project
 
 ```bash
-python -m pip install "athena-kit @ git+https://github.com/Oscarsb2004/athena-kit@v0.1.0"
+python -m pip install "athena-kit @ git+https://github.com/Oscarsb2004/athena-kit@v0.1.1"
 python -m athena.ingest . wdi-bulk wgi-bulk        # from the project's folder: its sources, its lock
 python -m athena.components check .                # the project's component manifest against its code
 ```

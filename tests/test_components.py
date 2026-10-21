@@ -28,7 +28,7 @@ class Double(Component):
 def legacy_sum(xs):
     return sum(xs)
 '''
-TEST = "def test_double():\n    pass\n"
+TEST = "def test_double():\n    assert Double\n"
 
 
 def write(tmp_path, manifest: str, code: str = CODE):
@@ -90,3 +90,17 @@ def test_a_component_must_declare_its_section_input_and_output():
             return inp
 
     assert Fine().run(In(2)) == In(2)
+
+
+def test_a_drafted_manifest_passes_the_check_and_keeps_reviewed_entries(tmp_path):
+    from athena.components import draft
+    head = "format: athena.components/1\ncovers: [pkg]\nsections: {pkg/: 04 Methods}\n"
+    root = write(tmp_path, head + "components:\n  - {id: pkg.steps.legacy_sum, section: 04 Methods, entry: "
+                 "pkg/steps.py:legacy_sum, form: legacy, purpose: Hand-written., inputs: [numbers], "
+                 "outputs: [a number], tests: [], depends_on: [], reviewed: true}\n")
+    doc = draft(root)
+    by_id = {e["id"]: e for e in doc["components"]}
+    assert by_id["pkg.steps.legacy_sum"]["purpose"] == "Hand-written."  # a reviewed entry is kept as written
+    assert by_id["pkg.steps.Double"]["form"] == "component" and by_id["pkg.steps.Double"]["drafted"]
+    assert by_id["pkg.steps.Double"]["tests"] == ["tests/test_steps.py::test_double"]
+    assert check(root).errors == []

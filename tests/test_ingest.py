@@ -45,3 +45,11 @@ def test_an_unknown_kind_or_key_stops_with_its_name(tmp_path):
         Ingest().run(Ingest.Input(p, "odd"))
     with pytest.raises(KeyError, match="'missing' is not in"):
         p.source("missing")
+
+
+def test_a_file_address_is_read_inside_the_project(tmp_path):
+    (tmp_path / "data").mkdir()
+    (tmp_path / "data" / "pull.bin").write_bytes(b"\x05")
+    p = project(tmp_path, '[pull]\nurl = "file:data/pull.bin"\nkind = "toy"\n')
+    out = Ingest({"toy": toy}, root=tmp_path / "ds").run(Ingest.Input(p, "pull"))
+    assert out.name == "toy-1" and "file:data/pull.bin" in (tmp_path / "sources.lock").read_text()
