@@ -1,0 +1,39 @@
+id = "power"
+title = "Power for industry"
+order = 220
+dimension = "infrastructure"
+about = "How reliable electricity is for those who use it: firms' outages and waits for a connection, from surveys of firms in the years each country was surveyed, and the power lost on the grid."
+
+[measures]
+outages = "Firms experiencing electrical outages, percent of firms"
+connection_days = "Time to obtain an electrical connection, days"
+losses = "Electric power transmission and distribution losses, percent of output"
+consumption = "Electric power consumption, kWh per person"
+
+[[figures]]
+id = "outages"
+label = "Firms with power outages"
+unit = "% of firms"
+measure = "outages"
+shell = "latest"
+
+[[figures]]
+id = "connection_days"
+label = "Wait for an electrical connection"
+unit = "days"
+measure = "connection_days"
+shell = "latest"
+
+[[figures]]
+id = "losses"
+label = "Losses on the grid"
+unit = "% of output"
+measure = "losses"
+shell = "latest"
+
+[[figures]]
+id = "consumption"
+label = "Electricity used"
+unit = "kWh per person"
+measure = "consumption"
+shell = "latest"

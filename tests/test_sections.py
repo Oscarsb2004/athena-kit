@@ -204,4 +204,4 @@ def test_every_shipped_template_loads():
     for name in names:
         t = sections.template(name)
         assert t["id"] == name and t["figures"]
-        assert t["dimension"] in {"stability", "economy", "finance"}
+        assert t["dimension"] in {"stability", "economy", "finance", "infrastructure"}

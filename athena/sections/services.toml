@@ -1,0 +1,79 @@
+id = "services"
+title = "Connection to services"
+order = 210
+dimension = "infrastructure"
+about = "Who is connected: electricity in towns and in the countryside, safe water, sanitation and the internet, each as its publisher estimates it."
+
+[measures]
+electricity = "Access to electricity, percent of the population"
+electricity_urban = "Access to electricity, percent of the urban population"
+electricity_rural = "Access to electricity, percent of the rural population"
+water = "People using at least basic drinking water services, percent of the population"
+sanitation = "People using at least basic sanitation services, percent of the population"
+internet = "Individuals using the Internet, percent of the population"
+mobile = "Mobile cellular subscriptions per 100 people"
+broadband = "Fixed broadband subscriptions per 100 people"
+
+[[figures]]
+id = "electricity"
+label = "Access to electricity"
+unit = "% of population"
+measure = "electricity"
+shell = "latest"
+
+[[figures]]
+id = "electricity_urban"
+label = "of which in towns"
+unit = "% of urban population"
+measure = "electricity_urban"
+shell = "latest"
+
+[[figures]]
+id = "electricity_rural"
+label = "of which in the countryside"
+unit = "% of rural population"
+measure = "electricity_rural"
+shell = "latest"
+
+[[figures]]
+id = "electricity_trend"
+label = "Access to electricity since 2000"
+unit = "% of population"
+measure = "electricity"
+shell = "trend"
+args = { since = "2000" }
+
+[[figures]]
+id = "water"
+label = "Basic drinking water"
+unit = "% of population"
+measure = "water"
+shell = "latest"
+
+[[figures]]
+id = "sanitation"
+label = "Basic sanitation"
+unit = "% of population"
+measure = "sanitation"
+shell = "latest"
+
+[[figures]]
+id = "internet"
+label = "Internet users"
+unit = "% of population"
+measure = "internet"
+shell = "latest"
+
+[[figures]]
+id = "mobile"
+label = "Mobile subscriptions"
+unit = "per 100 people"
+measure = "mobile"
+shell = "latest"
+
+[[figures]]
+id = "broadband"
+label = "Fixed broadband subscriptions"
+unit = "per 100 people"
+measure = "broadband"
+shell = "latest"

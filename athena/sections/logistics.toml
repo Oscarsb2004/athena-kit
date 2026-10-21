@@ -1,0 +1,47 @@
+id = "logistics"
+title = "Trade logistics"
+order = 230
+dimension = "infrastructure"
+about = "How goods move out: the Logistics Performance Index, which is logistics professionals' ratings rather than a measurement, beside the containers ports handle, air freight and the railway network."
+
+[measures]
+lpi = "Logistics Performance Index, overall score (1 = low to 5 = high)"
+lpi_infrastructure = "Logistics Performance Index, quality of trade and transport infrastructure (1 = low to 5 = high)"
+containers = "Container port traffic, twenty-foot equivalent units"
+air_freight = "Air transport, freight, million tonne-km"
+rail_km = "Rail lines, total route-km"
+
+[[figures]]
+id = "lpi"
+label = "Logistics Performance Index"
+unit = "score, 1 to 5"
+measure = "lpi"
+shell = "latest"
+
+[[figures]]
+id = "lpi_infrastructure"
+label = "of which trade and transport infrastructure"
+unit = "score, 1 to 5"
+measure = "lpi_infrastructure"
+shell = "latest"
+
+[[figures]]
+id = "containers"
+label = "Container port traffic"
+unit = "TEU"
+measure = "containers"
+shell = "latest"
+
+[[figures]]
+id = "air_freight"
+label = "Air freight"
+unit = "million tonne-km"
+measure = "air_freight"
+shell = "latest"
+
+[[figures]]
+id = "rail_km"
+label = "Railway network"
+unit = "route-km"
+measure = "rail_km"
+shell = "latest"

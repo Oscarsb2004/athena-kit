@@ -1,0 +1,47 @@
+id = "resources"
+title = "The resource economy"
+order = 240
+dimension = "infrastructure"
+about = "How much of the economy is the rent earned from each natural resource: oil, gas, coal, minerals and forests. The rents' total sits with the economy's structure."
+
+[measures]
+oil = "Oil rents, percent of GDP"
+gas = "Natural gas rents, percent of GDP"
+coal = "Coal rents, percent of GDP"
+minerals = "Mineral rents, percent of GDP"
+forests = "Forest rents, percent of GDP"
+
+[[figures]]
+id = "oil"
+label = "Oil"
+unit = "% of GDP"
+measure = "oil"
+shell = "latest"
+
+[[figures]]
+id = "gas"
+label = "Natural gas"
+unit = "% of GDP"
+measure = "gas"
+shell = "latest"
+
+[[figures]]
+id = "coal"
+label = "Coal"
+unit = "% of GDP"
+measure = "coal"
+shell = "latest"
+
+[[figures]]
+id = "minerals"
+label = "Minerals"
+unit = "% of GDP"
+measure = "minerals"
+shell = "latest"
+
+[[figures]]
+id = "forests"
+label = "Forests"
+unit = "% of GDP"
+measure = "forests"
+shell = "latest"
