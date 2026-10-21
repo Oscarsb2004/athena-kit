@@ -18,8 +18,9 @@ its section, entry, inputs, outputs, tests and dependencies.
         depends_on: []
 
 The check reads the code without running it (Python's own parser), and fails when:
-- an entry's file or name does not exist, or a `component` is not a class deriving from Component with `run`,
-  `Input` and `Output`;
+- an entry's file or name does not exist, or a `component` is not a class deriving from Component (directly or
+  through classes of its module) with `run`, `Input` and `Output` (an intermediate class may leave `run` to the
+  classes that derive from it);
 - a section is not one of the nine, an id repeats, a purpose, input or output is missing;
 - a listed test does not exist, or a dependency names no listed id;
 - a module under `covers` has no entry and is not ignored.
@@ -55,12 +56,33 @@ def _names(tree: ast.Module) -> dict[str, ast.AST]:
     return {n.name: n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))}
 
 
-def _is_component(node: ast.AST) -> bool:
+def _base_names(node: ast.ClassDef) -> set[str]:
+    return {b.id if isinstance(b, ast.Name) else getattr(b, "attr", "") for b in node.bases}
+
+
+def _is_component(node: ast.AST, names: dict[str, ast.AST] | None = None) -> bool:
+    """A class deriving from Component, directly or through classes of its own module, that declares Input and Output
+    along the way, and `run`, unless it is an intermediate class another class of the module derives from."""
     if not isinstance(node, ast.ClassDef):
         return False
-    bases = {b.id if isinstance(b, ast.Name) else getattr(b, "attr", "") for b in node.bases}
-    body = {n.name for n in node.body if isinstance(n, (ast.ClassDef, ast.FunctionDef))}
-    return "Component" in bases and {"run", "Input", "Output"} <= body
+    names = names or {}
+    bases, members, todo, seen = set(), set(), [node], set()
+    while todo:
+        cls = todo.pop()
+        if cls.name in seen:
+            continue
+        seen.add(cls.name)
+        members |= {n.name for n in cls.body if isinstance(n, (ast.ClassDef, ast.FunctionDef))}
+        members |= {t.id for n in cls.body if isinstance(n, (ast.Assign, ast.AnnAssign))
+                    for t in (n.targets if isinstance(n, ast.Assign) else [n.target]) if isinstance(t, ast.Name)}
+        for base in _base_names(cls):
+            bases.add(base)
+            if isinstance(names.get(base), ast.ClassDef):
+                todo.append(names[base])
+    if "Component" not in bases or not {"Input", "Output"} <= members:
+        return False
+    derived = any(node.name in _base_names(n) for n in names.values() if isinstance(n, ast.ClassDef))
+    return "run" in members or derived
 
 
 def check(root: Path) -> Report:
@@ -108,7 +130,7 @@ def check(root: Path) -> Report:
             report.errors.append(f"{who}: {file} has no top-level {name!r}")
         elif e.get("form") == "component":
             report.components += 1
-            if not _is_component(found[name]):
+            if not _is_component(found[name], found):
                 report.errors.append(f"{who}: {name} is not a Component with run, Input and Output")
         for test in e.get("tests") or []:
             tfile, _, tname = test.partition("::")
@@ -193,7 +215,7 @@ def draft(root: Path) -> dict:
             purpose = (ast.get_docstring(node) or "").strip().split("\n")[0] or "(no docstring: to be written)"
             calls = {n.id for n in ast.walk(node) if isinstance(n, ast.Name)} & imported
             entry = {"id": eid, "section": section, "entry": f"{rel}:{node.name}",
-                     "form": "component" if _is_component(node) else "legacy", "purpose": purpose,
+                     "form": "component" if _is_component(node, _names(tree)) else "legacy", "purpose": purpose,
                      "inputs": ins, "outputs": outs, "tests": sorted(set(used_in.get(node.name, [])))[:5],
                      "depends_on": sorted(calls), "drafted": True}
             entries.append(keep.get(eid, entry))

@@ -106,6 +106,36 @@ def test_a_drafted_manifest_passes_the_check_and_keeps_reviewed_entries(tmp_path
     assert check(root).errors == []
 
 
+def test_a_component_may_inherit_its_declarations_from_its_module(tmp_path):
+    from athena.components import draft
+    code = '''from athena.component import Component
+
+
+class Base(Component):
+    section = "04 Methods"
+    Input = int
+    Output = int
+
+
+class Twice(Base):
+    def run(self, inp):
+        return 2 * inp
+
+
+class Lone(Component):
+    section = "04 Methods"
+    Input = int
+    Output = int
+'''
+    root = write(tmp_path, "format: athena.components/1\ncovers: [pkg]\nsections: {pkg/: 04 Methods}\n", code)
+    forms = {e["id"]: e["form"] for e in draft(root)["components"]}
+    assert forms == {"pkg.steps.Base": "component", "pkg.steps.Twice": "component", "pkg.steps.Lone": "legacy"}
+    assert check(root).errors == []
+    text = (root / "components.yaml").read_text().replace("form: legacy", "form: component")  # Lone has no run
+    (root / "components.yaml").write_text(text)
+    assert check(root).errors == ["pkg.steps.Lone: Lone is not a Component with run, Input and Output"]
+
+
 def test_a_module_of_constants_is_one_entry_naming_the_file(tmp_path):
     from athena.components import draft
     root = write(tmp_path, "format: athena.components/1\ncovers: [pkg]\nsections: {pkg/: 04 Methods}\n")
