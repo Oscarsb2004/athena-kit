@@ -9,7 +9,7 @@ its section, entry, inputs, outputs, tests and dependencies.
     components:
       - id: panel.window_value
         section: 03 Pipeline
-        entry: asi/pipeline/panel.py:window_value     # file and top-level name
+        entry: asi/pipeline/panel.py:window_value     # file and top-level name (the file alone: a module of constants)
         form: legacy                                  # or component (a subclass of athena.component.Component)
         purpose: Derive each year's value from the observations at or before it.
         inputs: [observations table]
@@ -102,6 +102,8 @@ def check(root: Path) -> Report:
         found = names_in(root / file)
         if found is None:
             report.errors.append(f"{who}: {file} does not exist")
+        elif not name:
+            pass  # the whole module is the entry (a module of constants)
         elif name not in found:
             report.errors.append(f"{who}: {file} has no top-level {name!r}")
         elif e.get("form") == "component":
@@ -177,8 +179,14 @@ def draft(root: Path) -> dict:
         imported = {a.asname or a.name for n in ast.walk(tree) if isinstance(n, ast.ImportFrom) and n.module
                     and not n.module.startswith(("athena", "pandas", "numpy", "scipy")) for a in n.names}
         tops = [n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.ClassDef)) and not n.name.startswith("_")]
-        if not tops:  # a module of constants or a script body: one entry for the module itself
-            tops = [n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.ClassDef))][:1]
+        if not tops:  # a module of constants: one entry for the module itself, its outputs the names it binds
+            eid = rel.removesuffix(".py").replace("/", ".")
+            bound = [t.id for n in tree.body if isinstance(n, (ast.Assign, ast.AnnAssign))
+                     for t in (n.targets if isinstance(n, ast.Assign) else [n.target]) if isinstance(t, ast.Name)]
+            purpose = (ast.get_docstring(tree) or "").strip().split("\n")[0] or "(no docstring: to be written)"
+            entries.append(keep.get(eid, {"id": eid, "section": section, "entry": rel, "form": "legacy",
+                                          "purpose": purpose, "inputs": ["(none)"], "outputs": bound or ["(none)"],
+                                          "tests": [], "depends_on": [], "drafted": True}))
         for node in tops:
             eid = rel.removesuffix(".py").replace("/", ".") + "." + node.name
             ins, outs = _signature(node)

@@ -104,3 +104,15 @@ def test_a_drafted_manifest_passes_the_check_and_keeps_reviewed_entries(tmp_path
     assert by_id["pkg.steps.Double"]["form"] == "component" and by_id["pkg.steps.Double"]["drafted"]
     assert by_id["pkg.steps.Double"]["tests"] == ["tests/test_steps.py::test_double"]
     assert check(root).errors == []
+
+
+def test_a_module_of_constants_is_one_entry_naming_the_file(tmp_path):
+    from athena.components import draft
+    root = write(tmp_path, "format: athena.components/1\ncovers: [pkg]\nsections: {pkg/: 04 Methods}\n")
+    (root / "pkg" / "limits.py").write_text('"""The limits."""\nLOW = 1\nHIGH: int = 9\n')
+    by_id = {e["id"]: e for e in draft(root)["components"]}
+    assert by_id["pkg.limits"]["entry"] == "pkg/limits.py" and by_id["pkg.limits"]["outputs"] == ["LOW", "HIGH"]
+    assert by_id["pkg.limits"]["purpose"] == "The limits."
+    assert check(root).errors == []
+    (root / "pkg" / "limits.py").unlink()  # negative control: the file it names is gone
+    assert any("pkg/limits.py does not exist" in e for e in check(root).errors)
