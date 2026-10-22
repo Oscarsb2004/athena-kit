@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "athena-kit"
-version = "0.1.6"
+version = "0.1.7"
 description = "The public parts of Athena: published statistics fetched once and hash-locked, in one common format, with one adapter per database and the component standard."
 readme = "README.md"
 requires-python = ">=3.13"

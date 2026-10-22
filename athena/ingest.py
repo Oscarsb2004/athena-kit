@@ -121,10 +121,23 @@ def _faostat(src: dict, get: Get) -> Result:
     return Result(*faostat_bulk.ingest(get(src["url"]), src["domain"], src["edition"], codes))
 
 
+def _portwatch(src: dict, get: Get) -> Result:
+    from athena.adapters import imf_portwatch
+    files = {t: get(src["url"].format(item=item)) for t, item in src["items"].items()}
+    name, layers, tables, report = imf_portwatch.ingest(files, src["edition"])
+    return Result(name, tables, report, layers)
+
+
+def _wpi(src: dict, get: Get) -> Result:
+    from athena.adapters import nga_wpi
+    name, layers, tables, report = nga_wpi.ingest(get(src["url"]), src["edition"])
+    return Result(name, tables, report, layers)
+
+
 KINDS: dict[str, Callable[[dict, Get], Result]] = {
     "worldbank-bulk": _worldbank, "imf-weo": _weo, "undp-hdr": _hdr, "ti-cpi": _cpi, "ucdp": _ucdp,
     "wikidata-sparql": _wikidata, "glottolog-cldf": _glottolog, "usgs-africa-gis": _usgs, "wb-africa-grid": _grid,
-    "imf-sdmx": _imf_sdmx, "faostat-bulk": _faostat,
+    "imf-sdmx": _imf_sdmx, "faostat-bulk": _faostat, "imf-portwatch": _portwatch, "nga-wpi": _wpi,
 }
 
 
