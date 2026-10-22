@@ -1,7 +1,8 @@
 """A FAOSTAT domain, read whole from its normalized bulk file (bulks-faostat.fao.org/production).
 
 The zip holds the domain's long table (one row per area, item, element, year and month), and its area, item, element
-and flag lists. A row is annual (Months Code 7021) or monthly (7001 to 7012).
+and flag lists, all UTF-8 (a file that is not stops the ingest). A row is annual (Months Code 7021) or monthly (7001
+to 7012).
 
     SERIES       "<Item Code>.<Element Code>" (2051.5539: Agriculture, Producer Price Index 2014-2016 = 100)
     REF_AREA     the area's ISO 3166 alpha-3 code, matched by its M49 code; an area with none (a region, a group, a
@@ -63,7 +64,7 @@ def _read(zf: zipfile.ZipFile, suffix: str) -> pd.DataFrame:
     name = next((n for n in zf.namelist() if n.endswith(suffix)), None)
     if name is None:
         raise ValueError(f"the bulk file has no *{suffix}")
-    return pd.read_csv(zf.open(name), encoding="latin-1", dtype=str, keep_default_na=False)
+    return pd.read_csv(zf.open(name), encoding="utf-8", dtype=str, keep_default_na=False)
 
 
 def ingest(data: bytes, domain: str, edition: str, codes: dict[str, str]

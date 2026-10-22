@@ -65,15 +65,15 @@ NE = json.dumps({"features": [
     {"properties": {"ISO_A3": "-99", "ISO_N3": "004", "ADM0_A3": "XXX"}}]}).encode()  # a dependency: AAA's number
 
 
-def bulk(rows: list[str], months_code: str = "7021") -> bytes:
+def bulk(rows: list[str], encoding: str = "utf-8") -> bytes:
     head = ("Area Code,Area Code (M49),Area,Item Code,Item Code (CPC),Item,Element Code,Element,Year Code,Year,"
             "Months Code,Months,Unit,Value,Flag\n")
     out = io.BytesIO()
     with zipfile.ZipFile(out, "w") as z:
-        z.writestr("Prices_E_All_Data_(Normalized).csv", (head + "\n".join(rows) + "\n").encode("latin-1"))
+        z.writestr("Prices_E_All_Data_(Normalized).csv", (head + "\n".join(rows) + "\n").encode(encoding))
         z.writestr("Prices_E_AreaCodes.csv", "Area Code,M49 Code,Area\n1,'004,Alpha\n2,'008,Bêta\n9,'002,Region\n"
-                   .encode("latin-1"))
-        z.writestr("Prices_E_Flags.csv", "Flag, Description\nA,Official value\n".encode("latin-1"))
+                   .encode("utf-8"))
+        z.writestr("Prices_E_Flags.csv", "Flag, Description\nA,Official value\n".encode("utf-8"))
     return out.getvalue()
 
 
@@ -94,7 +94,9 @@ def test_a_faostat_domain_becomes_a_dataset_with_alpha3_codes_and_months():
     assert v.to_dict() == {("2051.5539", "AAA", "2020"): 104.2, ("15.5530", "BBB", "2021-M03"): 250.0,
                            ("2051.5539", "M49:002", "2020"): 99.0}  # a region keeps its M49 code, never dropped
     assert "rows without a numeric value, left out: 1" in report[2] and "kept as M49:<code>: 1 (Region)" in report[3]
-    assert tables["areas"].set_index("Area").REF_AREA.to_dict()["Bêta"] == "BBB"
+    assert tables["areas"].set_index("Area").REF_AREA.to_dict()["Bêta"] == "BBB"  # an accent read as written
+    with pytest.raises(UnicodeDecodeError):  # a file that is not UTF-8 stops, never garbles names
+        faostat_bulk.ingest(bulk(ROWS, encoding="latin-1"), "pp", "2026-10-09", codes)
 
 
 def test_an_unknown_month_or_a_code_held_twice_stops_the_faostat_ingest():
