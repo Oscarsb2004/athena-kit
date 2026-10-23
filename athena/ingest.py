@@ -128,6 +128,18 @@ def _portwatch(src: dict, get: Get) -> Result:
     return Result(name, tables, report, layers)
 
 
+def _ged(src: dict, get: Get) -> Result:
+    from athena.adapters import ucdp_ged
+    name, layers, tables, report = ucdp_ged.ingest(get(src["url"]), src["edition"], "ged")
+    return Result(name, tables, report, layers)
+
+
+def _candidate(src: dict, get: Get) -> Result:
+    from athena.adapters import ucdp_ged
+    name, layers, tables, report = ucdp_ged.ingest(get(src["url"]), src["edition"], "candidate")
+    return Result(name, tables, report, layers)
+
+
 def _wpi(src: dict, get: Get) -> Result:
     from athena.adapters import nga_wpi
     name, layers, tables, report = nga_wpi.ingest(get(src["url"]), src["edition"])
@@ -138,6 +150,7 @@ KINDS: dict[str, Callable[[dict, Get], Result]] = {
     "worldbank-bulk": _worldbank, "imf-weo": _weo, "undp-hdr": _hdr, "ti-cpi": _cpi, "ucdp": _ucdp,
     "wikidata-sparql": _wikidata, "glottolog-cldf": _glottolog, "usgs-africa-gis": _usgs, "wb-africa-grid": _grid,
     "imf-sdmx": _imf_sdmx, "faostat-bulk": _faostat, "imf-portwatch": _portwatch, "nga-wpi": _wpi,
+    "ucdp-ged": _ged, "ucdp-candidate": _candidate,
 }
 
 
