@@ -32,12 +32,14 @@ Get = Callable[[str], bytes]
 
 @dataclass(frozen=True)
 class Result:
-    """What an adapter returns: a dataset's name, its tables and its report, and layers for geodata."""
+    """What an adapter returns: a dataset's name, its tables and its report, layers for geodata, and parts for a table
+    too large to hold at once (written before the report, which they may add to)."""
 
     name: str
     tables: dict[str, pd.DataFrame]
     report: list[str]
     layers: dict | None = None
+    parts: dict | None = None
 
 
 class Project:
@@ -140,6 +142,17 @@ def _candidate(src: dict, get: Get) -> Result:
     return Result(name, tables, report, layers)
 
 
+def _baci(src: dict, get: Get) -> Result:
+    from athena.adapters import cepii_baci
+    name, tables, report, parts = cepii_baci.ingest(get(src["url"]), src["edition"])
+    return Result(name, tables, report, parts=parts)
+
+
+def _myb(src: dict, get: Get) -> Result:
+    from athena.adapters import usgs_myb
+    return Result(*usgs_myb.ingest(get(src["url"]), get(src["facilities_url"]), src["edition"]))
+
+
 def _wpi(src: dict, get: Get) -> Result:
     from athena.adapters import nga_wpi
     name, layers, tables, report = nga_wpi.ingest(get(src["url"]), src["edition"])
@@ -150,7 +163,8 @@ KINDS: dict[str, Callable[[dict, Get], Result]] = {
     "worldbank-bulk": _worldbank, "imf-weo": _weo, "undp-hdr": _hdr, "ti-cpi": _cpi, "ucdp": _ucdp,
     "wikidata-sparql": _wikidata, "glottolog-cldf": _glottolog, "usgs-africa-gis": _usgs, "wb-africa-grid": _grid,
     "imf-sdmx": _imf_sdmx, "faostat-bulk": _faostat, "imf-portwatch": _portwatch, "nga-wpi": _wpi,
-    "ucdp-ged": _ged, "ucdp-candidate": _candidate,
+    "ucdp-ged": _ged, "ucdp-candidate": _candidate, "cepii-baci": _baci,
+    "usgs-myb": _myb,
 }
 
 
@@ -182,6 +196,8 @@ class Ingest(Component):
         if kind not in self.kinds:
             raise ValueError(f"{inp.key}: no adapter for kind {kind!r}; known: {sorted(self.kinds)}")
         result = self.kinds[kind](src, inp.project.fetcher(self.session).get)
+        for file, parts in (result.parts or {}).items():
+            dataset.write_parts(result.name, file, parts, self.root)
         if result.layers is not None:
             from athena import geo
             path = geo.write(result.name, result.layers, result.tables, result.report, self.root)

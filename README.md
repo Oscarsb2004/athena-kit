@@ -12,10 +12,10 @@ Athena's own system (the library tooling, the Stewards, the agents) is private a
 | --- | --- |
 | `athena.fetch` | Fetch once, keep forever: a cached session that never expires, and a lock of every address's SHA-256; changed bytes are refused |
 | `athena.table` | The common format: one long table with SDMX column names, checked by pandera; rounding once, half up |
-| `athena.dataset`, `athena.geo` | Datasets and geodata (GeoParquet) in the store, `ATHENA_STORE` (default `C:\AthenaStore`) |
+| `athena.dataset`, `athena.geo` | Datasets, large tables (Parquet, written in parts) and geodata (GeoParquet) in the store, `ATHENA_STORE` (default `C:\AthenaStore`) |
 | `athena.sections`, `athena.figures` | Shared section templates and the figure shells that fill them |
 | `athena.commons` | Wikidata's query service and Wikimedia Commons, with each file's licence |
-| `athena.adapters` | One adapter per database, each pure: the World Bank's bulk downloads, the IMF WEO, UNDP's HDR, TI's CPI, UCDP, USGS's Africa GIS, the World Bank grid map, Wikidata, Glottolog, any IMF SDMX dataflow (the PPI first), any FAOSTAT bulk domain (producer prices first), IMF PortWatch (ports, chokepoints and their daily activity), NGA's World Port Index, UCDP's georeferenced events (GED and the monthly Candidate events) |
+| `athena.adapters` | One adapter per database, each pure: the World Bank's bulk downloads, the IMF WEO, UNDP's HDR, TI's CPI, UCDP, USGS's Africa GIS, the World Bank grid map, Wikidata, Glottolog, any IMF SDMX dataflow (the PPI first), any FAOSTAT bulk domain (producer prices first), IMF PortWatch (ports, chokepoints and their daily activity), NGA's World Port Index, UCDP's georeferenced events (GED and the monthly Candidate events), CEPII's BACI (world trade by product, its flows as Parquet), the USGS Minerals Yearbook's data release (world mineral production and facilities) |
 | `athena.ingest` | Ingest a project's sources: its own `sources.toml` and `sources.lock`, each source's kind run by its adapter |
 | `athena.component`, `athena.components` | The component standard, and the check of a project's `components.yaml` |
 

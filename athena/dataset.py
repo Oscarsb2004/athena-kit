@@ -1,11 +1,13 @@
 """Datasets in the store (P40): a folder of CSV tables and the report of the ingest that wrote them.
 
 A values table is always in the common format; other tables (a codebook, a membership list) are plain CSV.
-Values are written in full precision, so reading a dataset back gives exactly what was written.
+Values are written in full precision, so reading a dataset back gives exactly what was written. A table too large to
+hold at once (BACI's trade flows) is written part by part as Parquet, and read back filtered (`load_large`).
 """
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from pathlib import Path
 
 import pandas as pd
@@ -23,6 +25,30 @@ def write(name: str, tables: dict[str, pd.DataFrame], report: list[str], root: P
         frame.to_csv(folder / f"{file}.csv", index=False, lineterminator="\n")
     (folder / "report.txt").write_text("\n".join(report) + "\n", encoding="utf-8", newline="\n")
     return folder
+
+
+def write_parts(name: str, file: str, parts: Iterable, root: Path = ROOT) -> int:
+    """A large table, `<file>.parquet`, written from its parts (pyarrow tables of one schema) one at a time; the
+    number of rows written."""
+    import pyarrow.parquet as pq
+    folder = root / name
+    folder.mkdir(parents=True, exist_ok=True)
+    writer, rows = None, 0
+    try:
+        for part in parts:
+            writer = writer or pq.ParquetWriter(folder / f"{file}.parquet", part.schema, compression="zstd")
+            writer.write_table(part)
+            rows += part.num_rows
+    finally:
+        if writer:
+            writer.close()
+    return rows
+
+
+def load_large(name: str, file: str, columns: list[str] | None = None, filters: list | None = None,
+               root: Path = ROOT) -> pd.DataFrame:
+    """A large table's rows that pass `filters` (pyarrow's form, e.g. [("i", "in", [12, 24])]), with only `columns`."""
+    return pd.read_parquet(root / name / f"{file}.parquet", columns=columns, filters=filters)
 
 
 def load(name: str, file: str = "values", root: Path = ROOT) -> pd.DataFrame:
